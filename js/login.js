@@ -19,7 +19,7 @@ loginForm.addEventListener("submit", async function(event) {
 
     try {
 
-        const response = await fetch("https://dummyjson.com/users");
+        const response = await fetch("https://dummyjson.com/users?limit=0");
 
         if (!response.ok) {
             throw new Error("Gagal mengambil data dari API");
