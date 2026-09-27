@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GlowCart</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+<span class="brand-logo">GlowCart</span>
+<span id="welcomeUser">Halo!</span>
+<div class="navbar-actions">
+<span id="cartBadge">0</span>
+<span id="cartTotal">($0.00)</span>
+<button id="clearCartBtn" class="btn">Kosongkan</button>
+<button id="logoutBtn" class="btn">Logout</button>
+</div>
+</nav>
+
+<div class="filter-bar">
+<input type="text" id="searchInput" placeholder="Cari produk atau kategori...">
+<select id="categoryFilter">
+<option value="all">Semua Kategori</option>
+</select>
+<select id="sortSelect">
+<option value="default">Urutkan</option>
+<option value="price-low">Harga Termurah</option>
+<option value="price-high">Harga Termahal</option>
+<option value="rating-high">Rating Tertinggi</option>
+<option value="rating-low">Rating Terendah</option>
+</select>
+</div>
+
+<p id="resultCount"></p>
+<p id="globalError" class="error-text"></p>
+
+<div id="productGrid"></div>
+
+<button id="loadMoreBtn" class="btn btn-primary hidden">Muat Lebih Banyak</button>
+
+<div id="modalOverlay" class="modal-overlay hidden">
+<div class="modal">
+<button class="modal-close" id="modalClose">&times;</button>
+<div id="modalBody"></div>
+</div>
+</div>
+
+<script src="product.js" defer></script>
+<script src="fitur.js" defer></script>
+</body>
+</html>
