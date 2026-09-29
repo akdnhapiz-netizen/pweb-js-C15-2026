@@ -2,6 +2,19 @@
    FITUR INTERAKTIF (SEARCH, FILTER, SORT, CART, LOAD MORE)
    ======================================================== */
 
+const loggedInUser = localStorage.getItem("user");
+
+if (!loggedInUser) {
+    window.location.href = "loginpage.html";
+} else {
+    document.getElementById("welcomeUser").textContent = `Halo, ${loggedInUser}!`;
+}
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "loginpage.html";
+});
+
 let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const cartBadge = document.getElementById('cartBadge');
 const cartTotal = document.getElementById('cartTotal');
@@ -23,8 +36,9 @@ function addToCart(productId) {
 
     const existing = cart.find(item => item.id === product.id);
     if (existing) {
-        existing.qty += 1; 
-        cart.push({...product, qty: 1 }); 
+        existing.qty += 1;
+    } else {
+        cart.push({ ...product, qty: 1 });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -36,7 +50,6 @@ clearCartBtn.addEventListener('click', () => {
     localStorage.removeItem('cart');
     updateCartUI();
 });
-
 
 const loadMoreBtn = document.getElementById('loadMoreBtn');
 const productGrid = document.getElementById('productGrid');
@@ -79,7 +92,6 @@ function renderNextBatch() {
 
 loadMoreBtn.addEventListener('click', renderNextBatch);
 
-
 const categoryFilter = document.getElementById('categoryFilter');
 const sortSelect = document.getElementById('sortSelect');
 const searchInput = document.getElementById('searchInput');
@@ -96,13 +108,13 @@ function applyFiltersAndSort() {
     });
 
     if (sortMode === 'price-low') {
-        currentFilteredProducts.sort((a, b) => a.price - b.price); // Termurah
+        currentFilteredProducts.sort((a, b) => a.price - b.price);
     } else if (sortMode === 'price-high') {
-        currentFilteredProducts.sort((a, b) => b.price - a.price); // Termahal
+        currentFilteredProducts.sort((a, b) => b.price - a.price);
     } else if (sortMode === 'rating-high') {
-        currentFilteredProducts.sort((a, b) => b.rating - a.rating); // Rating Tertinggi
+        currentFilteredProducts.sort((a, b) => b.rating - a.rating);
     } else if (sortMode === 'rating-low') {
-        currentFilteredProducts.sort((a, b) => a.rating - b.rating); // Rating Terendah
+        currentFilteredProducts.sort((a, b) => a.rating - b.rating);
     }
 
     productGrid.innerHTML = '';
@@ -113,13 +125,12 @@ function applyFiltersAndSort() {
 categoryFilter.addEventListener('change', applyFiltersAndSort);
 sortSelect.addEventListener('change', applyFiltersAndSort);
 
-
 function debounce(func, delay) {
-    let timer; 
-    return function(...args) {
+    let timer;
+    return function (...args) {
         clearTimeout(timer);
         timer = setTimeout(() => {
-            func.apply(this, args); 
+            func.apply(this, args);
         }, delay);
     };
 }
